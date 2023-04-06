@@ -62,7 +62,7 @@
     clippy::verbose_file_reads
 )]
 
-/// Test function
-pub fn hello() {
-    println!("Hello from the case window manager");
-}
+mod config;
+mod wm;
+
+pub use wm::CaseWindowManager;
