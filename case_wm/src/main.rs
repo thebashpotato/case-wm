@@ -1,6 +1,6 @@
 //! MVP window manager
 
-use casewm::CaseWindowManager;
+use case_wm::CaseWindowManager;
 use penrose::Result as PenroseResult;
 use tracing_subscriber::prelude::*;
 
@@ -10,6 +10,6 @@ fn main() -> PenroseResult<()> {
         .finish()
         .init();
 
-    let case_wm = CaseWindowManager::new()?;
-    case_wm.run()
+    let cwm = CaseWindowManager::new()?;
+    cwm.run()
 }

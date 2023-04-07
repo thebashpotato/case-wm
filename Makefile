@@ -1,5 +1,3 @@
-
-
 run-embeded:
 	@./scripts/xephyr.sh
 

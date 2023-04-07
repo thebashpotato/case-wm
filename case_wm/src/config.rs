@@ -13,7 +13,7 @@ use std::collections::HashMap;
 
 /// Defines key bindings and actions for case window manager.
 pub fn raw_key_bindings() -> HashMap<String, Box<dyn KeyEventHandler<RustConn>>> {
-    let mut raw_bindings = map! {
+    let mut raw_bindings: HashMap<String, Box<dyn KeyEventHandler<RustConn>>> = map! {
         map_keys: |k: &str| k.to_owned();
 
         "M-j" => modify_with(|cs| cs.focus_down()),
