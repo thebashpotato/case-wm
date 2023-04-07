@@ -5,7 +5,7 @@
 <div align="center">
   <img alt="Crates.io" src="https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square">
   <br>
-  <p>A Dynamic Window Manager written in Rust</p>
+  <p>Dynamic Tiling Window manager written in Rust for console cowboys navigating the sprawl</p>
 </div>
 
 ## Table of Contents
