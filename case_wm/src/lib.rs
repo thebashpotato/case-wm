@@ -62,6 +62,7 @@
     clippy::verbose_file_reads
 )]
 
+mod bar;
 mod config;
 mod wm;
 

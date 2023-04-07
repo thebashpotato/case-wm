@@ -1,7 +1,7 @@
 //! Wraps penrose functionality into a single struct
 //! for easy execution.
 
-use crate::config::raw_key_bindings;
+use crate::{bar::CaseWindowManagerStatusBar, config::KeyBindingConfig};
 use penrose::{
     core::{bindings::parse_keybindings_with_xmodmap, Config, WindowManager},
     x11rb::RustConn,
@@ -14,15 +14,22 @@ use std::collections::HashMap;
 pub struct CaseWindowManager {
     /// Internal connection to X server
     wm: WindowManager<RustConn>,
+    /// Status bar loaded with users configurations
+    status_bar: CaseWindowManagerStatusBar,
 }
 
 impl CaseWindowManager {
     /// Create the case window manager instance.
     pub fn new() -> PenroseResult<Self> {
         let conn = RustConn::new()?;
-        let key_bindings = parse_keybindings_with_xmodmap(raw_key_bindings())?;
-        let wm = WindowManager::new(Config::default(), key_bindings, HashMap::new(), conn)?;
-        Ok(Self { wm })
+        let key_binding_config = KeyBindingConfig::new();
+        let parsed_key_bindings =
+            parse_keybindings_with_xmodmap(key_binding_config.key_bindings())?;
+        let wm = WindowManager::new(Config::default(), parsed_key_bindings, HashMap::new(), conn)?;
+        Ok(Self {
+            wm,
+            status_bar: CaseWindowManagerStatusBar::new(),
+        })
     }
 
     /// Start the WindowManager and run it until told to exit.
@@ -30,7 +37,10 @@ impl CaseWindowManager {
     /// Any provided startup hooks will be run after setting signal handlers and grabbing
     /// key / mouse bindings from the X server. Any set up you need to do should be run
     /// explicitly before calling this method or as part of a startup hook.
-    pub fn run(self) -> PenroseResult<()> {
-        self.wm.run()
+    pub fn run(mut self) -> anyhow::Result<()> {
+        let bar = self.status_bar.build_status_bar()?;
+        self.wm = bar.add_to(self.wm);
+        self.wm.run()?;
+        Ok(())
     }
 }
