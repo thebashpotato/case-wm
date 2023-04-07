@@ -1,0 +1,7 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.1.0
+Name=Case Window Manager
+Comment=Dynamic Tiling Window manager written in Rust using the Penrose library.
+Exec=/home/matt/Development/VersionControl/github/case-wm/target/release/case-wm
+Type=XSession
