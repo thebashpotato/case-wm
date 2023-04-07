@@ -12,7 +12,7 @@
 CUR_DIR="$(dirname "$(readlink -f "$0")")"
 SCREEN_SIZE='1200x600'
 XDISPLAY=${XDISPLAY:-:1}
-APP="$CUR_DIR/../target/debug/case-wm"
+APP="$CUR_DIR/../target/debug/casewm"
 
 touch "$CUR_DIR"/../xephyr.log
 

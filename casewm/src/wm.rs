@@ -1,7 +1,7 @@
 //! Wraps penrose functionality into a single struct
 //! for easy execution.
 
-use crate::{bar::CaseWindowManagerStatusBar, config::KeyBindingConfig};
+use crate::{bar::CaseWindowManagerStatusBar, config::KeyBindingConfig, layout::Layout};
 use penrose::{
     core::{bindings::parse_keybindings_with_xmodmap, Config, WindowManager},
     x11rb::RustConn,
@@ -19,13 +19,19 @@ pub struct CaseWindowManager {
 }
 
 impl CaseWindowManager {
-    /// Create the case window manager instance.
-    pub fn new() -> PenroseResult<Self> {
+    /// Creates the case window manager instance,
+    /// parses keybindings and sets up configuration and layouts.
+    pub fn setup() -> PenroseResult<Self> {
         let conn = RustConn::new()?;
         let key_binding_config = KeyBindingConfig::new();
         let parsed_key_bindings =
             parse_keybindings_with_xmodmap(key_binding_config.key_bindings())?;
-        let wm = WindowManager::new(Config::default(), parsed_key_bindings, HashMap::new(), conn)?;
+        let layouts = Layout::new();
+        let config = Config {
+            default_layouts: layouts.layouts(),
+            ..Config::default()
+        };
+        let wm = WindowManager::new(config, parsed_key_bindings, HashMap::new(), conn)?;
         Ok(Self {
             wm,
             status_bar: CaseWindowManagerStatusBar::new(),

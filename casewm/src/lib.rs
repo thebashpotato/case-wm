@@ -64,6 +64,7 @@
 
 mod bar;
 mod config;
+mod layout;
 mod wm;
 
 pub use wm::CaseWindowManager;

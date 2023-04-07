@@ -1,6 +1,6 @@
 //! MVP window manager
 
-use case_wm::CaseWindowManager;
+use casewm::CaseWindowManager;
 use tracing_subscriber::prelude::*;
 
 fn main() -> anyhow::Result<()> {
@@ -9,8 +9,8 @@ fn main() -> anyhow::Result<()> {
         .finish()
         .init();
 
-    let cwm = CaseWindowManager::new()?;
-    cwm.run()?;
+    let case_window_manager = CaseWindowManager::setup()?;
+    case_window_manager.run()?;
 
     Ok(())
 }
