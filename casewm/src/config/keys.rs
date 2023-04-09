@@ -43,7 +43,7 @@ impl KeyBindingConfig {
             "M-S-k" => modify_with(StackSet::swap_up),
             "M-q" => modify_with(StackSet::kill_focused),
 
-            // Workspaces
+            // Workspaces, moves workspaces to a different screen.
             "M-Tab" => modify_with(StackSet::toggle_tag),
             "M-bracketright" => modify_with(StackSet::next_screen),
             "M-bracketleft" => modify_with(StackSet::previous_screen),

@@ -1,5 +1,6 @@
 //! Custom actions
 
+use crate::config::ColorSchemeConfig;
 use crate::config::SCREEN_LOCK_TOOL;
 use penrose::{
     builtin::actions::key_handler,
@@ -14,9 +15,16 @@ use std::process::exit;
 #[allow(clippy::exit, clippy::unimplemented)]
 pub fn power_menu() -> Box<dyn KeyEventHandler<RustConn>> {
     key_handler(|state, _| {
+        let colorscheme = ColorSchemeConfig::new();
+        let dconfig = DMenuConfig {
+            bg_color: colorscheme.background(),
+            fg_color: colorscheme.foreground(),
+            selected_color: colorscheme.primary(),
+            ..DMenuConfig::default()
+        };
         let options = vec!["lock", "logout", "restart-wm", "shutdown", "reboot"];
         //let menu = DMenu::new(" ", options, DMenuConfig::default());
-        let menu = DMenu::new(">>> ", options, DMenuConfig::default());
+        let menu = DMenu::new(">>> ", options, dconfig);
         let screen_index = state.client_set.current_screen().index();
 
         if let Ok(MenuMatch::Line(_, choice)) = menu.run(screen_index) {
