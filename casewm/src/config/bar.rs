@@ -1,9 +1,10 @@
 //! Status Bar configuration code.
 
+use super::consts::{
+    BAR_FONT, BAR_FONT_POINT_SIZE, BAR_HEIGHT_PIXELS, BAR_MAX_ACTIVE_WINDOW_CHARS, BAR_PADDING,
+    BAR_POSITION,
+};
 use penrose_ui::Position;
-
-/// Shared between window config and this config.
-pub const BAR_HEIGHT_PIXELS: u32 = 25;
 
 /// Holds all variables that are needed to render
 /// the built in status bar.
@@ -26,15 +27,16 @@ pub struct BarConfig {
 impl BarConfig {
     /// User can add their custom values for the bar here.
     pub fn new() -> Self {
-        // TODO: Need to check for users font, and if not installed,
-        // use fallback font that comes default on every linux install.
+        // TODO: Write a font loader that verifies the users font,
+        // if it doesn't exist on the system it should load a default
+        // fallback font.
         Self {
             bar_height: BAR_HEIGHT_PIXELS,
-            font: "JetBrainsMono Nerd Font Mono".to_owned(),
-            font_point_size: 12,
-            padding: (2.0, 2.0),
-            max_active_window_chars: 50,
-            position: Position::Top,
+            font: BAR_FONT.to_owned(),
+            font_point_size: BAR_FONT_POINT_SIZE,
+            padding: BAR_PADDING,
+            max_active_window_chars: BAR_MAX_ACTIVE_WINDOW_CHARS,
+            position: BAR_POSITION,
         }
     }
 

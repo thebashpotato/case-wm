@@ -1,5 +1,6 @@
 <div align="center">
-  <h1>case-wm</h1>
+  <h1>Case Window Manager</h1>
+  <img src="banner.png">
 </div>
 <br>
 <div align="center">

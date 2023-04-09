@@ -5,48 +5,48 @@ use penrose::Color;
 /// Window manger colorscheme
 #[derive(Debug)]
 pub struct ColorSchemeConfig {
-    /// color
-    black: u32,
-    /// color
-    white: u32,
-    /// color
-    grey: u32,
-    /// color
-    blue: u32,
+    /// Background color, mostly used for bar
+    background: u32,
+    /// Foreground color mostly used for bar
+    foreground: u32,
+    /// Inactive client highlight color
+    inactive: u32,
+    /// Primary color that will be used for bar and window borders
+    primary: u32,
 }
 
 impl ColorSchemeConfig {
     /// Construct the colorscheme object
     pub const fn new() -> Self {
         Self {
-            black: 0x282828ff,
-            white: 0xebdbb2ff,
-            grey: 0x3c3836ff,
-            blue: 0x458588ff,
+            background: 0x1d20_21ff,
+            foreground: 0xa899_84ff,
+            inactive: 0xebdb_b2ff,
+            primary: 0x4585_88ff,
         }
     }
 
-    /// Getter for black.
+    /// Getter for background color
     /// Converts from hex repr to penrose rgba repr
-    pub fn black(&self) -> Color {
-        self.black.into()
+    pub fn background(&self) -> Color {
+        self.background.into()
     }
 
-    /// Getter for white.
+    /// Getter for foreground color
     /// Converts from hex repr to penrose rgba repr
-    pub fn white(&self) -> Color {
-        self.white.into()
+    pub fn foreground(&self) -> Color {
+        self.foreground.into()
     }
 
-    /// Getter for grey.
+    /// Getter for inactive color
     /// Converts from hex repr to penrose rgba repr
-    pub fn grey(&self) -> Color {
-        self.grey.into()
+    pub fn inactive(&self) -> Color {
+        self.inactive.into()
     }
 
-    /// Getter for blue.
+    /// Getter for primary color
     /// Converts from hex repr to penrose rgba repr
-    pub fn blue(&self) -> Color {
-        self.blue.into()
+    pub fn primary(&self) -> Color {
+        self.primary.into()
     }
 }

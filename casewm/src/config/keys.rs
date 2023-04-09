@@ -1,12 +1,21 @@
 //! Key binding configuration code.
 
+use super::consts::{
+    PROGRAM_LAUNCHER, SCREEN_LOCK_TOOL, SCREEN_SHOT_TOOL, TERMINAL, WINDOW_FLOATING_DELTA,
+};
+use crate::actions::power_menu;
 use penrose::{
     builtin::{
-        actions::{exit, modify_with, send_layout_message, spawn},
+        actions::{
+            exit,
+            floating::{float_focused, reposition, resize, sink_all, sink_focused},
+            log_current_state, modify_with, send_layout_message, spawn,
+        },
         layout::messages::{ExpandMain, IncMain, ShrinkMain},
     },
     core::bindings::KeyEventHandler,
     map,
+    pure::StackSet,
     x11rb::RustConn,
 };
 use std::collections::HashMap;
@@ -22,27 +31,65 @@ pub struct KeyBindingConfig {
 impl KeyBindingConfig {
     /// Key bindings and modifiers are defined here.
     /// Modifer key is Super.
+    #[allow(clippy::integer_arithmetic)]
     pub fn new() -> Self {
         let mut key_bindings: HashMap<String, Box<dyn KeyEventHandler<RustConn>>> = map! {
             map_keys: |k: &str| k.to_owned();
 
-            "M-j" => modify_with(|cs| cs.focus_down()),
-            "M-k" => modify_with(|cs| cs.focus_up()),
-            "M-S-j" => modify_with(|cs| cs.swap_down()),
-            "M-S-k" => modify_with(|cs| cs.swap_up()),
-            "M-q" => modify_with(|cs| cs.kill_focused()),
-            "M-Tab" => modify_with(|cs| cs.toggle_tag()),
-            "M-bracketright" => modify_with(|cs| cs.next_screen()),
-            "M-bracketleft" => modify_with(|cs| cs.previous_screen()),
-            "M-grave" => modify_with(|cs| cs.next_layout()),
-            "M-S-grave" => modify_with(|cs| cs.previous_layout()),
-            "M-S-Up" => send_layout_message(|| IncMain(1)),
-            "M-S-Down" => send_layout_message(|| IncMain(-1)),
-            "M-S-Right" => send_layout_message(|| ExpandMain),
-            "M-S-Left" => send_layout_message(|| ShrinkMain),
-            "M-p" => spawn("dmenu_run"),
-            "M-Return" => spawn("alacritty"),
+            // Windows
+            "M-j" => modify_with(StackSet::focus_down),
+            "M-k" => modify_with(StackSet::focus_up),
+            "M-S-j" => modify_with(StackSet::swap_down),
+            "M-S-k" => modify_with(StackSet::swap_up),
+            "M-q" => modify_with(StackSet::kill_focused),
+
+            // Workspaces
+            "M-Tab" => modify_with(StackSet::toggle_tag),
+            "M-bracketright" => modify_with(StackSet::next_screen),
+            "M-bracketleft" => modify_with(StackSet::previous_screen),
+            "M-S-bracketright" => modify_with(StackSet::drag_workspace_forward),
+            "M-S-bracketleft" => modify_with(StackSet::drag_workspace_backward),
+
+            // Layouts
+            "M-grave" => modify_with(StackSet::next_layout),
+            "M-S-grave" => modify_with(StackSet::previous_layout),
+            "M-Up" => send_layout_message(|| IncMain(1)),
+            "M-Down" => send_layout_message(|| IncMain(-1)),
+            "M-Right" => send_layout_message(|| ExpandMain),
+            "M-Left" => send_layout_message(|| ShrinkMain),
+
+            // Launchers
+            "M-A-s" => spawn(SCREEN_SHOT_TOOL),
+            "M-p" => spawn(PROGRAM_LAUNCHER),
+            "M-Return" => spawn(TERMINAL),
+            //"M-slash" => Box::new(toggle_scratch),
+
+            // Session management
+            "M-A-l" => spawn(SCREEN_LOCK_TOOL),
+            "M-A-space" => power_menu(),
             "M-A-Escape" => exit(),
+
+            // FLoating management
+            "M-C-f" => float_focused(),
+            "M-C-s" => sink_focused(),
+            "M-C-S-s" => sink_all(),
+
+            // Floating resize
+            "M-C-Right" => resize(WINDOW_FLOATING_DELTA, 0),
+            "M-C-Left" => resize(-WINDOW_FLOATING_DELTA, 0),
+            "M-C-Up" => resize(0, -WINDOW_FLOATING_DELTA),
+            "M-C-Down" => resize(0, WINDOW_FLOATING_DELTA),
+
+            // Floating position
+            "M-C-l" => reposition(WINDOW_FLOATING_DELTA, 0),
+            "M-C-h" => reposition(-WINDOW_FLOATING_DELTA, 0),
+            "M-C-k" => reposition(0, -WINDOW_FLOATING_DELTA),
+            "M-C-j" => reposition(0, WINDOW_FLOATING_DELTA),
+
+            //TODO: Load this dependant on debug cli flag
+            // Debugging
+            //"M-A-t" => set_tracing_filter(handle)
+            "M-S-s" => log_current_state(),
         };
 
         for tag in &["1", "2", "3", "4", "5", "6", "7", "8", "9"] {

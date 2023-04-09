@@ -16,7 +16,7 @@ use penrose_ui::{
 /// Holds all subsidary structures that make up the status bar,
 /// the user should not need to edit this file.
 #[derive(Debug)]
-pub struct CaseWindowManagerStatusBar {
+pub struct CaseWmStatusBar {
     /// Users bar config
     bar_config: BarConfig,
     /// Users color scheme
@@ -25,7 +25,7 @@ pub struct CaseWindowManagerStatusBar {
     style: TextStyle,
 }
 
-impl CaseWindowManagerStatusBar {
+impl CaseWmStatusBar {
     /// Builds the status bar
     pub fn new() -> Self {
         let bar_config = BarConfig::new();
@@ -33,8 +33,8 @@ impl CaseWindowManagerStatusBar {
         let style = TextStyle {
             font: bar_config.font().to_owned(),
             point_size: bar_config.font_point_size(),
-            fg: color_scheme.white(),
-            bg: Some(color_scheme.black()),
+            fg: color_scheme.foreground(),
+            bg: Some(color_scheme.background()),
             padding: bar_config.padding(),
         };
         Self {
@@ -54,20 +54,21 @@ impl CaseWindowManagerStatusBar {
         StatusBar::try_new(
             self.bar_config.position(),
             self.bar_config.bar_height(),
-            self.style.bg.unwrap_or_else(|| 0x00000.into()),
+            self.style.bg.unwrap_or_else(|| 0x0000.into()),
             &[&self.style.font],
             vec![
                 Box::new(Workspaces::new(
                     &self.style,
-                    self.color_scheme.blue(),
-                    self.color_scheme.grey(),
+                    self.color_scheme.primary(),
+                    self.color_scheme.inactive(),
                 )),
                 Box::new(CurrentLayout::new(&self.style)),
-                // Box::new(penrose_bar::widgets::debug::StateSummary::new(style)),
+                //TODO: Load this dependant on debug cli flag
+                //Box::new(StateSummary::new(&self.style)),
                 Box::new(ActiveWindowName::new(
                     self.bar_config.max_active_window_chars(),
                     &TextStyle {
-                        bg: Some(self.color_scheme.blue()),
+                        bg: Some(self.color_scheme.primary()),
                         padding: (6.0, 4.0),
                         ..self.style.clone()
                     },

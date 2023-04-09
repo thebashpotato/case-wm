@@ -4,7 +4,7 @@
 // clippy WARN level lints
 #![warn(
     missing_docs,
-    //clippy::pedantic,
+    clippy::pedantic,
     clippy::nursery,
     clippy::dbg_macro,
     clippy::unwrap_used,
@@ -61,10 +61,12 @@
     clippy::unseparated_literal_suffix,
     clippy::verbose_file_reads
 )]
+#![allow(clippy::module_name_repetitions)]
 
-mod bar;
+mod actions;
+mod app;
 mod config;
 mod layout;
-mod wm;
+mod status_bar;
 
-pub use wm::CaseWindowManager;
+pub use app::CaseWm;

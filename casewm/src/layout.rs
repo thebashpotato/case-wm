@@ -1,5 +1,4 @@
 //! Custom and built in layouts
-//! use crate::{BAR_HEIGHT_PX, INNER_PX, MAX_MAIN, OUTER_PX, RATIO, RATIO_STEP};
 
 use crate::config::WindowConfig;
 use penrose::{
