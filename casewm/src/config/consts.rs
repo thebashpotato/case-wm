@@ -6,8 +6,8 @@ use penrose_ui::Position;
 //     Bar configuration              //
 ///////////////////////////////////////
 
-/// Size of the status bar
-pub const BAR_HEIGHT_PIXELS: u32 = 30;
+/// Height of the status bar in pixels
+pub const BAR_HEIGHT_PIXELS: u32 = 25;
 
 /// Position of the status bar/ Top or Bottom
 pub const BAR_POSITION: Position = Position::Top;
@@ -53,11 +53,8 @@ pub const WINDOW_RATIO_STEP: f32 = 0.1;
 /// Terminal
 pub const TERMINAL: &str = "alacritty";
 
-/// Program launcher (demu, rofi) etc..
-pub const PROGRAM_LAUNCHER: &str = "dmenu_run";
-
 /// X Screen shot tool
-pub const SCREEN_SHOT_TOOL: &str = "screenshot";
+pub const SCREEN_SHOT_TOOL: &str = "scrot";
 
 /// X Screen lock tool
 pub const SCREEN_LOCK_TOOL: &str = "slock";

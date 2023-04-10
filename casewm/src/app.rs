@@ -3,6 +3,7 @@
 use crate::{config::KeyBindingConfig, layout::Layout, status_bar::CaseWmStatusBar};
 use penrose::{
     core::{bindings::parse_keybindings_with_xmodmap, Config, WindowManager},
+    extensions::hooks::{add_ewmh_hooks, SpawnOnStartup},
     x11rb::RustConn,
     Result as PenroseResult,
 };
@@ -30,10 +31,12 @@ impl CaseWm {
         let layouts = Layout::new();
         let parsed_key_bindings =
             parse_keybindings_with_xmodmap(key_binding_config.key_bindings())?;
-        let config = Config {
+
+        let config = add_ewmh_hooks(Config {
             default_layouts: layouts.layouts(),
+            startup_hook: Some(SpawnOnStartup::boxed("/usr/local/bin/casewm_startup.sh")),
             ..Config::default()
-        };
+        });
         let wm = WindowManager::new(config, parsed_key_bindings, HashMap::new(), conn)?;
         Ok(Self { wm, status_bar })
     }

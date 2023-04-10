@@ -6,12 +6,16 @@ use penrose::Color;
 #[derive(Debug)]
 pub struct ColorSchemeConfig {
     /// Background color, mostly used for bar
+    /// Default: #1d2021
     background: u32,
     /// Foreground color mostly used for bar
+    /// Default: #a89984
     foreground: u32,
     /// Inactive client highlight color
+    /// Default: #ebdbb2
     inactive: u32,
     /// Primary color that will be used for bar and window borders
+    /// Default: #458588
     primary: u32,
 }
 

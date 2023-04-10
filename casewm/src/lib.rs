@@ -68,5 +68,6 @@ mod app;
 mod config;
 mod layout;
 mod status_bar;
+mod utils;
 
 pub use app::CaseWm;

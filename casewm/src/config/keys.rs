@@ -1,9 +1,7 @@
 //! Key binding configuration code.
 
-use super::consts::{
-    PROGRAM_LAUNCHER, SCREEN_LOCK_TOOL, SCREEN_SHOT_TOOL, TERMINAL, WINDOW_FLOATING_DELTA,
-};
-use crate::actions::power_menu;
+use super::consts::{SCREEN_LOCK_TOOL, SCREEN_SHOT_TOOL, TERMINAL, WINDOW_FLOATING_DELTA};
+use crate::actions::{run_dmenu, session_menu};
 use penrose::{
     builtin::{
         actions::{
@@ -60,13 +58,14 @@ impl KeyBindingConfig {
 
             // Launchers
             "M-A-s" => spawn(SCREEN_SHOT_TOOL),
-            "M-p" => spawn(PROGRAM_LAUNCHER),
+            "M-p" => run_dmenu(),
             "M-Return" => spawn(TERMINAL),
+            "M-c" => spawn("alacritty -e calcurse"),
             //"M-slash" => Box::new(toggle_scratch),
 
             // Session management
             "M-A-l" => spawn(SCREEN_LOCK_TOOL),
-            "M-A-space" => power_menu(),
+            "M-A-space" => session_menu(),
             "M-A-Escape" => exit(),
 
             // FLoating management

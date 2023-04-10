@@ -8,6 +8,6 @@ mod window;
 
 pub use bar::BarConfig;
 pub use colorscheme::ColorSchemeConfig;
-pub use consts::SCREEN_LOCK_TOOL;
+pub use consts::{BAR_FONT, SCREEN_LOCK_TOOL};
 pub use keys::KeyBindingConfig;
 pub use window::WindowConfig;
