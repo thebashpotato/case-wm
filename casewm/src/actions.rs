@@ -20,10 +20,10 @@ pub fn session_menu() -> Box<dyn KeyEventHandler<RustConn>> {
             ..DMenuConfig::default()
         };
         let screen_index = state.client_set.current_screen().index();
-        let menu = DMenu::new(Some(" "), dm_config, screen_index);
+        let dmenu = DMenu::new(Some(" "), dm_config, screen_index);
 
         let options = vec!["lock", "logout", "restart-wm", "shutdown", "reboot"];
-        if let Ok(MenuMatch::Line(_, choice)) = menu.build_menu(options) {
+        if let Ok(MenuMatch::Line(_, choice)) = dmenu.build_menu(options) {
             match choice.as_ref() {
                 "lock" => spawn(SCREEN_LOCK_TOOL),
                 "logout" => spawn("pkill -fi casewm"),

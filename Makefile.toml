@@ -37,6 +37,7 @@ script = [
     "sudo cp -v ../install-files/casewm_startup.sh /usr/local/bin",
     "sudo cp -v ../install-files/casewm-background.png /usr/share/backgrounds/",
     "cp -rv ../install-files/picom/picom.conf ~/.config/",
+    "sudo rm -rvf /usr/local/bin/casewm",
     "sudo cp -v ../target/release/casewm /usr/local/bin",
 ]
 dependencies = ["clean", "release"]

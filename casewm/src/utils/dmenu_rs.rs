@@ -11,7 +11,7 @@ use std::{
 };
 
 /// Two different derivatives of dmenu
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum DMenuKind {
     /// Suckless's version of dmenu
     ///
@@ -265,17 +265,18 @@ impl<'c> DMenu<'c> {
 
     /// Get a vector of choices as bytes
     fn choices_as_input_bytes(&self, choices: &[String]) -> Vec<u8> {
-        let new_choices = if self.config.show_line_numbers {
+        if self.config.show_line_numbers {
             choices
                 .iter()
                 .enumerate()
                 .map(|(i, s)| format!("{i:<3} {s}"))
                 .collect::<Vec<String>>()
                 .join("\n")
+                .as_bytes()
+                .to_vec()
         } else {
-            choices.join("\n")
-        };
-        new_choices.as_bytes().to_vec()
+            choices.join("\n").as_bytes().to_vec()
+        }
     }
 
     /// Launch a shell process with all arguments to dmenu
@@ -304,5 +305,76 @@ impl<'c> DMenu<'c> {
             .read_to_string(&mut raw)?;
 
         Ok(raw)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{DMenuConfig, DMenuKind};
+
+    /// Flags [ nb, nf, sb, and nf] need to be modified for the different
+    /// versions of dmenu. Classic Suckless dmenu uses a single dash "-", dmenu-rs
+    /// uses the more modern cli style of double dashes "--".
+    /// This test depends on the order the flags are loaded into the array, so if the order
+    /// is changed in the flags function, these tests will fail. There is a better way, but
+    /// this works for now.
+    #[test]
+    fn dmenu_suckless_config_test() {
+        let dc = DMenuConfig {
+            custom_font: Some("mono"),
+            ..DMenuConfig::default()
+        };
+
+        // Should default to suckless c-style dmenu
+        assert_eq!(dc.kind, DMenuKind::Suckless);
+        let flags = dc.flags(None, 0);
+
+        for (i, flag) in flags.into_iter().enumerate() {
+            if i == 2 {
+                assert_eq!(flag, "-nb".to_owned());
+            }
+            if i == 4 {
+                assert_eq!(flag, "-nf".to_owned());
+            }
+            if i == 6 {
+                assert_eq!(flag, "-sb".to_owned());
+            }
+            if i == 10 {
+                assert_eq!(flag, "-fn".to_owned());
+            }
+        }
+    }
+
+    /// Flags [ nb, nf, sb, and nf] need to be modified for the different
+    /// versions of dmenu. Classic Suckless dmenu uses a single dash "-", dmenu-rs
+    /// uses the more modern cli style of double dashes "--".
+    /// This test depends on the order the flags are loaded into the array, so if the order
+    /// is changed in the flags function, these tests will fail. There is a better way, but
+    /// this works for now.
+    #[test]
+    fn dmenu_rs_config_test() {
+        let dc = DMenuConfig {
+            custom_font: Some("mono"),
+            kind: DMenuKind::Rust,
+            ..DMenuConfig::default()
+        };
+
+        assert_eq!(dc.kind, DMenuKind::Rust);
+        let flags = dc.flags(None, 0);
+
+        for (i, flag) in flags.into_iter().enumerate() {
+            if i == 2 {
+                assert_eq!(flag, "--nb".to_owned());
+            }
+            if i == 4 {
+                assert_eq!(flag, "--nf".to_owned());
+            }
+            if i == 6 {
+                assert_eq!(flag, "--sb".to_owned());
+            }
+            if i == 10 {
+                assert_eq!(flag, "--fn".to_owned());
+            }
+        }
     }
 }
