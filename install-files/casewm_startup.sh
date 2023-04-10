@@ -13,14 +13,17 @@ function run() {
 }
 
 # Speed up X
-xset r rate 300 50 &
+xset r rate 200 60 &
 
 # Make capslock behave like ctrl
 setxkbmap -option ctrl:nocaps
 
 # Set background
-feh --bg-scale ~/Pictures/wallpapers/cyberpunk_0.png
+feh --bg-fill /usr/share/backgrounds/casewm-background.png
 
 run picom
 run nm-applet
 run volumeicon
+run dunst
+pkill -fi gnome-keyring-daemon
+gnome-keyring-daemon --start --components=pkcs11,secrets,ssh &

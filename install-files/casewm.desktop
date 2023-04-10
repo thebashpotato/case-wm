@@ -1,7 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Version=0.1.0
-Name=Case Window Manager
+Name=casewm
 Comment=Dynamic Tiling Window manager written in Rust for console cowboys navigating the sprawl
-Exec=/home/matt/Development/VersionControl/github/case-wm/target/release/case-wm
+Exec=/usr/local/bin/casewm
 Type=XSession
