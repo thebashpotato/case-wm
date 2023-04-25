@@ -9,12 +9,10 @@ repository = "https://github.com/thebashpotato/case-wm"
 keywords = ["window manager", "penrose"]
 license-file = "LICENSE"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 anyhow = "1.0.70"
-penrose = "0.3.1"
-penrose_ui = "0.1.1"
+penrose = { path = "/home/matt/Development/VersionControl/github/penrose/" }
+penrose_ui = { path = "/home/matt/Development/VersionControl/github/penrose/crates/penrose_ui" }
 tracing-subscriber = { version = "0.3.16", features = ["env-filter"] }
 tracing = "0.1.37"
 
