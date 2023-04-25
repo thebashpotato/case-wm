@@ -19,10 +19,12 @@ use penrose::extensions::util::dmenu::{DMenuConfig, DMenuKind};
 /// # Arguments
 ///  * `n_lines` the number of lines to show, 0 means the content will
 ///     be displayed horizontally.
-pub fn get_dmenu_config(n_lines: u8) -> DMenuConfig {
+///  * `show_on_bottom` Display dmenu on the bottom or top
+pub fn get_dmenu_config(n_lines: u8, show_on_bottom: bool) -> DMenuConfig {
     let colorscheme = ColorSchemeConfig::new();
     DMenuConfig {
         n_lines,
+        show_on_bottom,
         custom_prompt: Some(" ".to_owned()),
         kind: DMenuKind::Rust,
         custom_font: Some(BAR_FONT.to_owned()),

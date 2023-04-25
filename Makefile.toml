@@ -45,6 +45,7 @@ dependencies = ["release"]
 [tasks.reinstall]
 script = [
     "echo \"\nInstalling casewm binary\" ",
+    "sudo rm -rvf /usr/local/bin/casewm",
     "sudo cp -v ../target/release/casewm /usr/local/bin",
 ]
 dependencies = [ "release" ]

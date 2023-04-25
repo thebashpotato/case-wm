@@ -69,4 +69,4 @@ mod config;
 mod layout;
 mod status_bar;
 
-pub use app::CaseWm;
+pub use app::CaseWindowManager;

@@ -8,23 +8,28 @@ use penrose::{
     Result as PenroseResult,
 };
 use std::collections::HashMap;
+use tracing_subscriber::prelude::*;
 
 /// Wraps the penrose rust connection alias type.
 #[derive(Debug)]
-pub struct CaseWm {
+pub struct CaseWindowManager {
     /// Internal connection to X server
     wm: WindowManager<RustConn>,
     /// Status bar loaded with users configurations
     status_bar: CaseWmStatusBar,
 }
 
-impl CaseWm {
+impl CaseWindowManager {
     /// Creates the case window manager instance,
     /// parses keybindings and sets up configuration and layouts.
     ///
     /// # Errors
     /// * `penrose::Result`
     pub fn setup() -> PenroseResult<Self> {
+        tracing_subscriber::fmt()
+            .with_env_filter("info")
+            .finish()
+            .init();
         let conn = RustConn::new()?;
         let key_binding_config = KeyBindingConfig::new();
         let status_bar = CaseWmStatusBar::new();

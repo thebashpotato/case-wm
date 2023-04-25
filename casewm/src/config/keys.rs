@@ -60,14 +60,14 @@ impl KeyBindingConfig {
 
             // Launchers
             "M-A-s" => spawn(SCREEN_SHOT_TOOL),
-            "M-p" => launch_dmenu(get_dmenu_config(0)),
+            "M-p" => launch_dmenu(get_dmenu_config(0, true)),
             "M-Return" => spawn(TERMINAL),
             "M-c" => spawn("alacritty -e calcurse"),
             //"M-slash" => Box::new(toggle_scratch),
 
             // Session management
             "M-A-l" => spawn(SCREEN_LOCK_TOOL),
-            "M-A-space" => session_menu(get_dmenu_config(10)),
+            "M-A-space" => session_menu(get_dmenu_config(10, false)),
             "M-A-Escape" => exit(),
 
             // FLoating management

@@ -1,15 +1,9 @@
 //! The case window manager.
 
-use casewm::CaseWm;
-use tracing_subscriber::prelude::*;
+use casewm::CaseWindowManager;
 
 fn main() -> anyhow::Result<()> {
-    tracing_subscriber::fmt()
-        .with_env_filter("info")
-        .finish()
-        .init();
-
-    let casewm = CaseWm::setup()?;
+    let casewm = CaseWindowManager::setup()?;
     casewm.run()?;
 
     Ok(())
