@@ -26,4 +26,4 @@ run nm-applet
 run volumeicon
 run dunst
 pkill -fi gnome-keyring-daemon
-gnome-keyring-daemon --start --components=pkcs11,secrets,ssh &
+eval "$(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)"
