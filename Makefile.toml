@@ -36,25 +36,22 @@ script = [
     "sudo cp -v ../install-files/casewm.desktop /usr/share/xsessions",
     "sudo cp -v ../install-files/casewm_startup.sh /usr/local/bin",
     "sudo cp -v ../install-files/casewm-background.png /usr/share/backgrounds/",
-    "cp -rv ../install-files/picom/picom.conf ~/.config/",
+    "cp -rv ../install-files/picom/ ~/.config/",
     "sudo rm -rvf /usr/local/bin/casewm",
-    "sudo cp -v ../target/release/casewm /usr/local/bin",
-]
-dependencies = ["clean", "release"]
-
-[tasks.reinstall]
-script = [
-    "echo \"\nReinstalling casewm binary\" ",
-    "sudo rm -rvf /usr/local/bin/casewm",
-    "cp -rv ../install-files/picom/picom.conf ~/.config/",
-    "sudo cp -v ../install-files/casewm_startup.sh /usr/local/bin",
     "sudo cp -v ../target/release/casewm /usr/local/bin",
 ]
 dependencies = ["release"]
 
+[tasks.reinstall]
+script = [
+    "echo \"\nInstalling casewm binary\" ",
+    "sudo cp -v ../target/release/casewm /usr/local/bin",
+]
+dependencies = [ "release" ]
+
 [tasks.uninstall]
 script = [
-    "echo \"\nUninstalling casewm\" ",
+    "echo \"\nUninstalling casewm\"",
     "rm -rvf ~/.config/picom",
     "sudo rm -rvf /usr/share/xsessions/casewm.desktop",
     "sudo rm -rvf /usr/local/bin/casewm_startup.sh",
