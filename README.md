@@ -27,12 +27,13 @@ TODO
 
 > Casewm depends on the below libraries and programs to function.
 
-### Rust depenecies
+<details>
+<summary><h3>Rust Dependencies</h3></summary>
+Todo
+</details>
 
-TODO
-
-### Distro Dependencies
-
+<details>
+<summary><h3>Distro Dependencies</h3></summary>
 <ul>
   <li><h5>libx11</h5>        (X11 main development files)</li>
   <li><h5>libxft</h5>       (X11 FreeType-based font drawing library)</li>
@@ -48,10 +49,7 @@ TODO
   <li><h5>alacritty</h5>     (Rust GPU accelerated terminal emulator)</li>
 </ul>
 
-<details>
 <summary><h4>Arch Linux</h4></summary>
-
-Install command
 
 ```bash
 sudo pacman -S libx11 libxft libxcb libxinerama picom dunst feh \
