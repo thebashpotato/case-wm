@@ -48,7 +48,6 @@ Todo
   <li><h5>zathura</h5>       (Lightweight PDF reader)</li>
   <li><h5>alacritty</h5>     (Rust GPU accelerated terminal emulator)</li>
 </ul>
-</details>
 
 <details>
 <summary><h4>Arch Linux</h4></summary>
@@ -58,6 +57,7 @@ sudo pacman -S libx11 libxft libxcb libxinerama picom dunst feh \
      gnome-keyring calcurse newsboat zathura zathura-cb zathura-pdf-poppler zathura-djvu
 ```
 
+</details>
 </details>
 
 ## Usage
