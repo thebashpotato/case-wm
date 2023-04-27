@@ -35,18 +35,18 @@ Todo
 <details>
 <summary><h3>Distro Dependencies</h3></summary>
 <ul>
-  <li><h5>libx11</h5>        (X11 main development files)</li>
-  <li><h5>libxft</h5>       (X11 FreeType-based font drawing library)</li>
-  <li><h5>libxcb</h5>        (X11 client side library)</li>
-  <li><h5>libxinerama</h5>   (X11 Xinerama extension library)</li>
-  <li><h5>picom</h5>         (X11 compositor)</li>
-  <li><h5>dunst</h5>         (Lightwight notification daemon)</li>
-  <li><h5>feh</h5>           (Sets background wallpapers)</li>
-  <li><h5>gnome-keyring</h5> (So your git ssh keys function)</li>
-  <li><h5>calcurse</h5>     (Tui calender)</li>
-  <li><h5>newsboat</h5>      (Tui rss feed reader)</li>
-  <li><h5>zathura</h5>       (Lightweight PDF reader)</li>
-  <li><h5>alacritty</h5>     (Rust GPU accelerated terminal emulator)</li>
+  <li><h5>libx11</h5>         (X11 main development files)</li>
+  <li><h5>libxft</h5>         (X11 FreeType-based font drawing library)</li>
+  <li><h5>libxcb</h5>         (X11 client side library)</li>
+  <li><h5>libxinerama</h5>    (X11 Xinerama extension library)</li>
+  <li><h5>picom</h5>          (X11 compositor)</li>
+  <li><h5>dunst</h5>          (Lightwight notification daemon)</li>
+  <li><h5>feh</h5>            (Sets background wallpapers)</li>
+  <li><h5>gnome-keyring</h5>  (So your git ssh keys function)</li>
+  <li><h5>calcurse</h5>       (Tui calender)</li>
+  <li><h5>newsboat</h5>       (Tui rss feed reader)</li>
+  <li><h5>zathura</h5>        (Lightweight PDF reader)</li>
+  <li><h5>alacritty</h5>      (Rust GPU accelerated terminal emulator)</li>
 </ul>
 
 <details>
